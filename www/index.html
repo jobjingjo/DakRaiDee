@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <style>
+	.jumbotron{
+		text-align:center;
+	}
+  </style>
+  <body>
+	<div class="container theme-showcase" role="main">
+		<div id="suggest" class="jumbotron">
+			<h1></h1>
+		</div>
+	</div>
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script>
+	//https://dakraidee.firebaseio.com/.json
+	//https://console.firebase.google.com/project/dakraidee/database/rules
+	
+	function random(a)
+	{
+			return Math.floor((Math.random() * a));
+	}
+	
+	menu = {"cooktype":["ผัดเขียวหวาน","ผัดต้มยำ","ผัดพริกแกง","ผัดพริกเผา","ผัดพริกหยวก","ผัดคะน้า","ผัดกระเพรา","ผัดขี้เมา","ผัดพริกไทดำ","ผัดกระเทียม","ผัดเผ็ด"," ผัดผงกระหรี่","ผัดพริกสด"," ผัดกระเทียมพริกไทย","ผัดซอส"],"meattype":["$(normal)","$(seafood)"],"menu":["$(cooktype)$(meattype)","$(cooktype)หมูแดดเดียว","ปลาดุกพริกแกงราดข้าว","$(cooktype)$(special)กระเพรากรอบราดข้าว","$(cooktype)$(meattype)","$(cooktype)$(special)ราดข้าว"," ผัดฉ่าปลาดุก"," ผัดฉ่ารวมมิตร"," ผัดฉ่าทะเล","$(cooktype)$(meattype)"," ตับหมู$(cooktype)"," ปลากระพง$(cooktype)"," ปลาช่อน$(cooktype)","$(special)ทอด ราดข้าว"," ข้าวต้มหมู,ไก่ / ทะเล,กระดูกหมู, ปลา, รวมมิตร"," ข้าวผัดปู, ข้าวผัด$(special), "," ข้าวผัดโป๊ะแตก"," ข้าวผัดปลาเค็ม"," ข้าว$(cooktype)$(meattype)"," ข้าวไข่เจียว / ไข่เจียวหมูสับ / $(special),กุ้งสับ"," ข้าวผัด$(special)"," ก๋วยเตี๋ยวต้มยำ $(noodle)"," ก๋วยเตี๋ยวต้มแซ่บ $(noodle)"," สุกี้น้ำ - แห้ง $(noodle)"," ผัดซีอิ๊ว $(meattype)"," ราดหน้า $(meattype)"," มาม่า$(cooktype)$(meattype)"," มาม่าต้มยำ$(meattype)"," มะกะโรนี$(cooktype)$(meattype)"," สปาเก๊ตตี้$(cooktype)$(meattype)"," ผัดผักกระเชต / เนื้อสัตว์"," ผัดผักบุ้ง / เนื้อสัตว์"," ผัดดอกคะน้าหมู,ไก่ / หมูกรอบ"," ผัดเห็ดน้ำมันหอยหมู,ไก่ / หมูกรอบ"," ผัดไทแห้ง"," ผัดไทกุ้งสด"," ผัดเส้นหมี่+ผักกระเชด+ทะเล"," ราดหน้าผักรวม $(meattype)"," ราดหน้าหมี่กรอบ $(meattype)"," กระเพรา$(meattype)สับ","$(cooktype)วุ้นเส้นรวมมิตร"],"noodle":["$(normal)","$(seafood)","กระดูกหมู"],"normal":["หมู","ไก่","รวมมิตร","เนื้อ"],"seafood":["ทะเล","กุ้ง","ปลาหมึก"],"special":["ปลาเค็ม","ไข่เยี่ยวม้า","แหนม","กระดูกหมู","กุนเชียง","หมูยอ","หมูกรอบ","ไส้กรอก","กระเพราหมูยอ"],"special2":["กบ","นก"]}	
+
+	selectedmenu = menu.menu[random(menu.menu.length)];
+	selectedmenu="$(cooktype)$(special)"
+	
+	//selectedmenu.indexOf(s)
+	
+	i = selectedmenu.lastIndexOf("$");//11
+	
+	//"$(cooktype)$(special)".lastIndexOf("$");
+	//p=0;
+	while(i>=0)
+	{					
+			data = selectedmenu.substring(i);
+			j = data.indexOf(")");
+			data = data.substring(0, j+1);
+			replace =""
+			if (data=="$(cooktype)"){
+				replace=menu.cooktype[random(menu.cooktype.length)];
+			}else if (data=="$(special)"){
+				replace=menu.special[random(menu.special.length)];
+			}else if (data=="$(meattype)"){
+				replace=menu.meattype[random(menu.meattype.length)];
+			}else if (data=="$(seafood)"){
+				replace=menu.seafood[random(menu.seafood.length)];
+			}else if (data=="$(normal)"){
+				replace=menu.normal[random(menu.normal.length)];
+			}else if (data=="$(special2)"){
+				replace=menu.special2[random(menu.special2.length)];
+			}else if (data=="$(noodle)"){
+				replace=menu.noodle[random(menu.noodle.length)];
+			}
+			selectedmenu = selectedmenu.replace(data, replace);
+			//selectedmenu.split(subString, index).join(subString).length;
+			//selectedmenu.
+			i = selectedmenu.lastIndexOf("$");
+			//selectedmenu
+			//p++
+			//if(p>3)i=-1
+	}
+
+	//document.body.innerHTML=selectedmenu;
+	$('#suggest h1').html(selectedmenu);
+</script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
