@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>DakRaiDee</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,9 @@
 		<div id="suggest" class="jumbotron">
 			<h1></h1>
 		</div>
+		
+		<button id="Eat" type="button" class="btn btn-lg btn-success">Eat</button>
+		<button id="Change" type="button" class="btn btn-lg btn-danger">Change</button>
 	</div>
 </body>
 <script src="js/jquery-3.1.1.min.js"></script>
@@ -39,50 +42,103 @@
 			return Math.floor((Math.random() * a));
 	}
 	
-	menu = {"cooktype":["ผัดเขียวหวาน","ผัดต้มยำ","ผัดพริกแกง","ผัดพริกเผา","ผัดพริกหยวก","ผัดคะน้า","ผัดกระเพรา","ผัดขี้เมา","ผัดพริกไทดำ","ผัดกระเทียม","ผัดเผ็ด"," ผัดผงกระหรี่","ผัดพริกสด"," ผัดกระเทียมพริกไทย","ผัดซอส"],"meattype":["$(normal)","$(seafood)"],"menu":["$(cooktype)$(meattype)","$(cooktype)หมูแดดเดียว","ปลาดุกพริกแกงราดข้าว","$(cooktype)$(special)กระเพรากรอบราดข้าว","$(cooktype)$(meattype)","$(cooktype)$(special)ราดข้าว"," ผัดฉ่าปลาดุก"," ผัดฉ่ารวมมิตร"," ผัดฉ่าทะเล","$(cooktype)$(meattype)"," ตับหมู$(cooktype)"," ปลากระพง$(cooktype)"," ปลาช่อน$(cooktype)","$(special)ทอด ราดข้าว"," ข้าวต้มหมู,ไก่ / ทะเล,กระดูกหมู, ปลา, รวมมิตร"," ข้าวผัดปู, ข้าวผัด$(special), "," ข้าวผัดโป๊ะแตก"," ข้าวผัดปลาเค็ม"," ข้าว$(cooktype)$(meattype)"," ข้าวไข่เจียว / ไข่เจียวหมูสับ / $(special),กุ้งสับ"," ข้าวผัด$(special)"," ก๋วยเตี๋ยวต้มยำ $(noodle)"," ก๋วยเตี๋ยวต้มแซ่บ $(noodle)"," สุกี้น้ำ - แห้ง $(noodle)"," ผัดซีอิ๊ว $(meattype)"," ราดหน้า $(meattype)"," มาม่า$(cooktype)$(meattype)"," มาม่าต้มยำ$(meattype)"," มะกะโรนี$(cooktype)$(meattype)"," สปาเก๊ตตี้$(cooktype)$(meattype)"," ผัดผักกระเชต / เนื้อสัตว์"," ผัดผักบุ้ง / เนื้อสัตว์"," ผัดดอกคะน้าหมู,ไก่ / หมูกรอบ"," ผัดเห็ดน้ำมันหอยหมู,ไก่ / หมูกรอบ"," ผัดไทแห้ง"," ผัดไทกุ้งสด"," ผัดเส้นหมี่+ผักกระเชด+ทะเล"," ราดหน้าผักรวม $(meattype)"," ราดหน้าหมี่กรอบ $(meattype)"," กระเพรา$(meattype)สับ","$(cooktype)วุ้นเส้นรวมมิตร"],"noodle":["$(normal)","$(seafood)","กระดูกหมู"],"normal":["หมู","ไก่","รวมมิตร","เนื้อ"],"seafood":["ทะเล","กุ้ง","ปลาหมึก"],"special":["ปลาเค็ม","ไข่เยี่ยวม้า","แหนม","กระดูกหมู","กุนเชียง","หมูยอ","หมูกรอบ","ไส้กรอก","กระเพราหมูยอ"],"special2":["กบ","นก"]}	
+	function FoodRandom(){
+		this.menu = {"cooktype":["ผัดเขียวหวาน","ผัดต้มยำ","ผัดพริกแกง","ผัดพริกเผา","ผัดพริกหยวก","ผัดคะน้า","ผัดกระเพรา","ผัดขี้เมา","ผัดพริกไทดำ","ผัดกระเทียม","ผัดเผ็ด"," ผัดผงกระหรี่","ผัดพริกสด"," ผัดกระเทียมพริกไทย","ผัดซอส"],"meattype":["","$(normal)","$(seafood)"],"menu":["$(cooktype)$(meattype)","$(cooktype)หมูแดดเดียว","ปลาดุกพริกแกงราดข้าว","$(cooktype)$(special)กระเพรากรอบราดข้าว","$(cooktype)$(meattype)","$(cooktype)$(special)ราดข้าว"," ผัดฉ่าปลาดุก"," ผัดฉ่ารวมมิตร"," ผัดฉ่าทะเล","$(cooktype)$(meattype)"," ตับหมู$(cooktype)"," ปลากระพง$(cooktype)"," ปลาช่อน$(cooktype)","$(special)ทอด ราดข้าว"," ข้าวต้ม$(meattype)"," ข้าวผัดปู"," ข้าวผัด$(special)"," ข้าวผัดโป๊ะแตก"," ข้าวผัดปลาเค็ม"," ข้าว$(cooktype)$(meattype)"," ข้าวไข่เจียว "," ไข่เจียว$(special)","ไข่เจียวหมูสับ","ไข่เจียวกุ้งสับ"," ข้าวผัด$(special)"," ก๋วยเตี๋ยวต้มยำ $(noodle)"," ก๋วยเตี๋ยวต้มแซ่บ $(noodle)"," สุกี้น้ำ - แห้ง $(noodle)"," ผัดซีอิ๊ว $(meattype)"," ราดหน้า $(meattype)"," มาม่า$(cooktype)$(meattype)"," มาม่าต้มยำ$(meattype)"," มะกะโรนี$(cooktype)$(meattype)"," สปาเก๊ตตี้$(cooktype)$(meattype)"," ผัดผักกระเชต$(meattype)"," ผัดผักบุ้ง$(meattype)"," ผัดดอกคะน้า$(meattype)"," ผัดเห็ดน้ำมันหอย$(meattype)"," ผัดไทแห้ง"," ผัดไทกุ้งสด"," ผัดเส้นหมี่+ผักกระเชด+ทะเล"," ราดหน้าผักรวม $(meattype)"," ราดหน้าหมี่กรอบ $(meattype)"," กระเพรา$(meattype)สับ","$(cooktype)วุ้นเส้นรวมมิตร"],"noodle":["$(normal)","$(seafood)","กระดูกหมู"],"normal":["หมู","ไก่","รวมมิตร","เนื้อ"],"seafood":["ทะเล","กุ้ง","ปลาหมึก"],"special":["ปลาเค็ม","ไข่เยี่ยวม้า","แหนม","กระดูกหมู","กุนเชียง","หมูยอ","หมูกรอบ","ไส้กรอก","กระเพราหมูยอ"],"special2":["กบ","นก"]}	
+		this.getMenu=(function(){
+			menu = this.menu;
+			selectedmenu = menu.menu[random(menu.menu.length)];	
+			
+			//selectedmenu.indexOf(s)
+			
+			i = selectedmenu.lastIndexOf("$");//11
+			
+			//"$(cooktype)$(special)".lastIndexOf("$");
+			//p=0;
+			while(i>=0)
+			{					
+					data = selectedmenu.substring(i);
+					j = data.indexOf(")");
+					data = data.substring(0, j+1);
+					replace =""
+					if (data=="$(cooktype)"){
+						replace=menu.cooktype[random(menu.cooktype.length)];
+					}else if (data=="$(special)"){
+						replace=menu.special[random(menu.special.length)];
+					}else if (data=="$(meattype)"){
+						replace=menu.meattype[random(menu.meattype.length)];
+					}else if (data=="$(seafood)"){
+						replace=menu.seafood[random(menu.seafood.length)];
+					}else if (data=="$(normal)"){
+						replace=menu.normal[random(menu.normal.length)];
+					}else if (data=="$(special2)"){
+						replace=menu.special2[random(menu.special2.length)];
+					}else if (data=="$(noodle)"){
+						replace=menu.noodle[random(menu.noodle.length)];
+					}
+					selectedmenu = selectedmenu.replace(data, replace.trim());
+					//selectedmenu.split(subString, index).join(subString).length;
+					//selectedmenu.
+					i = selectedmenu.lastIndexOf("$");
+					//selectedmenu
+					//p++
+					//if(p>3)i=-1
+			}	
+			return selectedmenu.trim();
+		})
+	}
+	
+	var x;
+	if(x===undefined)
+	{
+			x=new FoodRandom()
+	}
+	
+	function Eat(food)
+	{
+		/*
+		var zzz =store.set('counter', 0)
+		zzz=zzz+1;
+		store.get('counter')
+		*/
+		/*
+		if (typeof(Storage) !== "undefined") {
+			// Code for localStorage/sessionStorage.
+			// Retrieve
+			var history = 0
+			history = parseInt(localStorage.getItem(food));			
+			if(history==null)history=0;
+			history++;
+			// Store
+			localStorage.setItem(food, history);
+			
+			for (var key in localStorage){
+			   console.log(key + " "+ localStorage.getItem(key))
+			}			
 
-	selectedmenu = menu.menu[random(menu.menu.length)];
-	selectedmenu="$(cooktype)$(special)"
-	
-	//selectedmenu.indexOf(s)
-	
-	i = selectedmenu.lastIndexOf("$");//11
-	
-	//"$(cooktype)$(special)".lastIndexOf("$");
-	//p=0;
-	while(i>=0)
-	{					
-			data = selectedmenu.substring(i);
-			j = data.indexOf(")");
-			data = data.substring(0, j+1);
-			replace =""
-			if (data=="$(cooktype)"){
-				replace=menu.cooktype[random(menu.cooktype.length)];
-			}else if (data=="$(special)"){
-				replace=menu.special[random(menu.special.length)];
-			}else if (data=="$(meattype)"){
-				replace=menu.meattype[random(menu.meattype.length)];
-			}else if (data=="$(seafood)"){
-				replace=menu.seafood[random(menu.seafood.length)];
-			}else if (data=="$(normal)"){
-				replace=menu.normal[random(menu.normal.length)];
-			}else if (data=="$(special2)"){
-				replace=menu.special2[random(menu.special2.length)];
-			}else if (data=="$(noodle)"){
-				replace=menu.noodle[random(menu.noodle.length)];
-			}
-			selectedmenu = selectedmenu.replace(data, replace);
-			//selectedmenu.split(subString, index).join(subString).length;
-			//selectedmenu.
-			i = selectedmenu.lastIndexOf("$");
-			//selectedmenu
-			//p++
-			//if(p>3)i=-1
+		} else {
+			// Sorry! No Web Storage support..
+		}
+		*/
+		var i = store.get(food)	
+		if(i==null)i=0;
+		//var zzz =store.set(food, 0)
+		//zzz=zzz+1;
+		i=i+1;
+		store.set(food, i)	
+		
 	}
 
 	//document.body.innerHTML=selectedmenu;
-	$('#suggest h1').html(selectedmenu);
+	$('#suggest h1').html(x.getMenu());
+	$('#Eat').click(function(){
+		food = $('#suggest h1').html();	
+		Eat(food);
+	});
+	$('#Change').click(function(){
+		$('#suggest h1').html(x.getMenu());
+	});
 </script>
     <script src="js/bootstrap.min.js"></script>
+	<script src="js/store.min.js"></script>
   </body>
 </html>
