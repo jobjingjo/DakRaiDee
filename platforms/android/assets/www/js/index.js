@@ -34,6 +34,24 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+		
+		
+		var onShake = function () {
+		  // Fired when a shake is detected
+		  $('#suggest h1').html(x.getMenu());
+		};
+
+		var onError = function () {
+		  // Fired when there is an accelerometer error (optional)
+		};
+
+		// Start watching for shake gestures and call "onShake"
+		// with a shake sensitivity of 40 (optional, default 30)
+		shake.startWatch(onShake, 40 /*, onError */);
+
+		// Stop watching for shake gestures
+		//shake.stopWatch();	
+	
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -46,6 +64,8 @@ var app = {
 
         console.log('Received Event: ' + id);
     }
+	
+	
 };
 
 app.initialize();

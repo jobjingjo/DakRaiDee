@@ -31,6 +31,60 @@ module.exports = [
         "clobbers": [
             "CameraPopoverHandle"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device-motion/www/Acceleration.js",
+        "id": "cordova-plugin-device-motion.Acceleration",
+        "pluginId": "cordova-plugin-device-motion",
+        "clobbers": [
+            "Acceleration"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device-motion/www/accelerometer.js",
+        "id": "cordova-plugin-device-motion.accelerometer",
+        "pluginId": "cordova-plugin-device-motion",
+        "clobbers": [
+            "navigator.accelerometer"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-shake/www/shake.js",
+        "id": "cordova-plugin-shake.Shake",
+        "pluginId": "cordova-plugin-shake",
+        "clobbers": [
+            "shake"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+        "id": "cordova-plugin-geolocation.geolocation",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "navigator.geolocation"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+        "id": "cordova-plugin-geolocation.PositionError",
+        "pluginId": "cordova-plugin-geolocation",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+        "id": "cordova-plugin-dialogs.notification_android",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -38,7 +92,11 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.3.1",
     "cordova-plugin-compat": "1.1.0",
-    "cordova-plugin-camera": "2.3.1"
+    "cordova-plugin-camera": "2.3.1",
+    "cordova-plugin-device-motion": "1.2.3",
+    "cordova-plugin-shake": "0.5.4",
+    "cordova-plugin-geolocation": "2.4.1",
+    "cordova-plugin-dialogs": "1.3.1"
 }
 // BOTTOM OF METADATA
 });

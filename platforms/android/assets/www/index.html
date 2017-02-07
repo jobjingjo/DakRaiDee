@@ -1,49 +1,372 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>DakRaiDee</title>
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
-    <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
-    </head>
-    <body>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <style>
+	.jumbotron{
+		text-align:center;
+	}
+  </style>
+  <body>
+	<div class="container theme-showcase" role="main">
+		<div id="suggest" class="jumbotron">
+			<h1></h1>
+		</div>
+		
+		<button id="Eat" type="button" class="btn btn-lg btn-success">Eat</button>
+		<button id="Change" type="button" class="btn btn-lg btn-danger">Change</button>
+		
+		
+		<button id="Test1" type="button" class="btn btn-lg btn-danger">Test1</button>
+		<button id="Test2" type="button" class="btn btn-lg btn-danger">Test2</button>
+		
+	</div>
+	
         <div class="app">
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
+			<div id="places" style="width:300px;height:400px;">place</div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-    </body>
+		
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script>
+	//https://dakraidee.firebaseio.com/.json
+	//https://console.firebase.google.com/project/dakraidee/database/rules
+	
+	function random(a)
+	{
+			return Math.floor((Math.random() * a));
+	}
+	
+	function FoodRandom(){
+		this.menu = {"cooktype":["ผัดเขียวหวาน","ผัดต้มยำ","ผัดพริกแกง","ผัดพริกเผา","ผัดพริกหยวก","ผัดคะน้า","ผัดกระเพรา","ผัดขี้เมา","ผัดพริกไทดำ","ผัดกระเทียม","ผัดเผ็ด"," ผัดผงกระหรี่","ผัดพริกสด"," ผัดกระเทียมพริกไทย","ผัดซอส"],"meattype":["","$(normal)","$(seafood)"],"menu":["$(cooktype)$(meattype)","$(cooktype)หมูแดดเดียว","ปลาดุกพริกแกงราดข้าว","$(cooktype)$(special)กระเพรากรอบราดข้าว","$(cooktype)$(meattype)","$(cooktype)$(special)ราดข้าว"," ผัดฉ่าปลาดุก"," ผัดฉ่ารวมมิตร"," ผัดฉ่าทะเล","$(cooktype)$(meattype)"," ตับหมู$(cooktype)"," ปลากระพง$(cooktype)"," ปลาช่อน$(cooktype)","$(special)ทอด ราดข้าว"," ข้าวต้ม$(meattype)"," ข้าวผัดปู"," ข้าวผัด$(special)"," ข้าวผัดโป๊ะแตก"," ข้าวผัดปลาเค็ม"," ข้าว$(cooktype)$(meattype)"," ข้าวไข่เจียว "," ไข่เจียว$(special)","ไข่เจียวหมูสับ","ไข่เจียวกุ้งสับ"," ข้าวผัด$(special)"," ก๋วยเตี๋ยวต้มยำ $(noodle)"," ก๋วยเตี๋ยวต้มแซ่บ $(noodle)"," สุกี้น้ำ - แห้ง $(noodle)"," ผัดซีอิ๊ว $(meattype)"," ราดหน้า $(meattype)"," มาม่า$(cooktype)$(meattype)"," มาม่าต้มยำ$(meattype)"," มะกะโรนี$(cooktype)$(meattype)"," สปาเก๊ตตี้$(cooktype)$(meattype)"," ผัดผักกระเชต$(meattype)"," ผัดผักบุ้ง$(meattype)"," ผัดดอกคะน้า$(meattype)"," ผัดเห็ดน้ำมันหอย$(meattype)"," ผัดไทแห้ง"," ผัดไทกุ้งสด"," ผัดเส้นหมี่+ผักกระเชด+ทะเล"," ราดหน้าผักรวม $(meattype)"," ราดหน้าหมี่กรอบ $(meattype)"," กระเพรา$(meattype)สับ","$(cooktype)วุ้นเส้นรวมมิตร"],"noodle":["$(normal)","$(seafood)","กระดูกหมู"],"normal":["หมู","ไก่","รวมมิตร","เนื้อ"],"seafood":["ทะเล","กุ้ง","ปลาหมึก"],"special":["ปลาเค็ม","ไข่เยี่ยวม้า","แหนม","กระดูกหมู","กุนเชียง","หมูยอ","หมูกรอบ","ไส้กรอก","กระเพราหมูยอ"],"special2":["กบ","นก"]}	
+		this.getMenu=(function(){
+			menu = this.menu;
+			selectedmenu = menu.menu[random(menu.menu.length)];	
+			
+			//selectedmenu.indexOf(s)
+			
+			i = selectedmenu.lastIndexOf("$");//11
+			
+			//"$(cooktype)$(special)".lastIndexOf("$");
+			//p=0;
+			while(i>=0)
+			{					
+					data = selectedmenu.substring(i);
+					j = data.indexOf(")");
+					data = data.substring(0, j+1);
+					replace =""
+					if (data=="$(cooktype)"){
+						replace=menu.cooktype[random(menu.cooktype.length)];
+					}else if (data=="$(special)"){
+						replace=menu.special[random(menu.special.length)];
+					}else if (data=="$(meattype)"){
+						replace=menu.meattype[random(menu.meattype.length)];
+					}else if (data=="$(seafood)"){
+						replace=menu.seafood[random(menu.seafood.length)];
+					}else if (data=="$(normal)"){
+						replace=menu.normal[random(menu.normal.length)];
+					}else if (data=="$(special2)"){
+						replace=menu.special2[random(menu.special2.length)];
+					}else if (data=="$(noodle)"){
+						replace=menu.noodle[random(menu.noodle.length)];
+					}
+					selectedmenu = selectedmenu.replace(data, replace.trim());
+					//selectedmenu.split(subString, index).join(subString).length;
+					//selectedmenu.
+					i = selectedmenu.lastIndexOf("$");
+					//selectedmenu
+					//p++
+					//if(p>3)i=-1
+			}	
+			return selectedmenu.trim();
+		})
+	}
+	
+	var x;
+	if(x===undefined)
+	{
+			x=new FoodRandom()
+	}
+	
+	function Eat(food)
+	{
+		/*
+		var zzz =store.set('counter', 0)
+		zzz=zzz+1;
+		store.get('counter')
+		*/
+		/*
+		if (typeof(Storage) !== "undefined") {
+			// Code for localStorage/sessionStorage.
+			// Retrieve
+			var history = 0
+			history = parseInt(localStorage.getItem(food));			
+			if(history==null)history=0;
+			history++;
+			// Store
+			localStorage.setItem(food, history);
+			
+			for (var key in localStorage){
+			   console.log(key + " "+ localStorage.getItem(key))
+			}			
+
+		} else {
+			// Sorry! No Web Storage support..
+		}
+		*/
+		var i = store.get(food)	
+		if(i==null)i=0;
+		//var zzz =store.set(food, 0)
+		//zzz=zzz+1;
+		i=i+1;
+		store.set(food, i)	
+		
+		
+		navigator.camera.getPicture(onSuccess, onFail, { quality: 25,
+			destinationType: Camera.DestinationType.DATA_URL
+		});
+
+		function onSuccess(imageData) {
+			//var image = document.getElementById('myImage');
+			//image.src = "data:image/jpeg;base64," + imageData;
+			
+			  var postData = {
+				img: "data:image/jpeg;base64," + imageData,
+				food: food,
+				starCount: 1,
+			  };			
+			
+			var newPostKey = firebase.database().ref().child('posts').push().key;
+			var updates = {};
+				updates['/posts/' + newPostKey] = postData;
+				//updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+
+			firebase.database().ref().update(updates);
+		}
+
+		function onFail(message) {
+			alert('Failed because: ' + message);
+		}		
+		
+	}
+
+	//document.body.innerHTML=selectedmenu;
+	$('#suggest h1').html(x.getMenu());
+	$('#Eat').click(function(){
+		food = $('#suggest h1').html();	
+		Eat(food);
+	});
+	$('#Change').click(function(){
+		$('#suggest h1').html(x.getMenu());
+	});
+	
+	$('#Test1').click(function(){
+			function alertDismissed() {
+				// do something
+			}
+
+			navigator.notification.alert(
+				'You are the winner!',  // message
+				alertDismissed,         // callback
+				'Game Over',            // title
+				'Done'                  // buttonName
+			);
+	});
+	
+	$('#Test2').click(function(){
+
+	
+		//watchPlacesPosition();
+		
+		
+		var latLong;
+		$.getJSON("http://ipinfo.io", function(ipinfo){
+			console.log("Found location ["+ipinfo.loc+"] by ipinfo.io");
+			latLong = ipinfo.loc.split(",");
+			
+			getPlaces(latLong[0], latLong[1]);
+		});	
+		
+		/*
+		var onSuccess = function(position) {
+				alert('Latitude: '          + position.coords.latitude          + '\n' +
+					  'Longitude: '         + position.coords.longitude         + '\n' +
+					  'Altitude: '          + position.coords.altitude          + '\n' +
+					  'Accuracy: '          + position.coords.accuracy          + '\n' +
+					  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+					  'Heading: '           + position.coords.heading           + '\n' +
+					  'Speed: '             + position.coords.speed             + '\n' +
+					  'Timestamp: '         + position.timestamp                + '\n');
+			};
+
+		// onError Callback receives a PositionError object
+		//
+		function onError(error) {
+			alert('code: '    + error.code    + '\n' +
+				  'message: ' + error.message + '\n');
+		}		
+		
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		*/
+	});
+		
+
+</script>
+    <script src="js/bootstrap.min.js"></script>
+	<script src="js/store.min.js"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3jdpVrHXLtENLc55r1Tb9i0Y_dk3Hixk&libraries=places"></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHN1tJAeX4PgHxfSrJPTn8GATFxYN6pKE&libraries=places"></script>
+
+<script>
+var Map;
+var Infowindow;
+var Latitude = undefined;
+var Longitude = undefined;
+
+// Get geo coordinates
+
+function getPlacesLocation() {
+    navigator.geolocation.getCurrentPosition
+    (onPlacesSuccess, onPlacesError, { enableHighAccuracy: true });
+}
+
+// Success callback for get geo coordinates
+
+var onPlacesSuccess = function (position) {
+
+    Latitude = position.coords.latitude;
+    Longitude = position.coords.longitude;
+
+    getPlaces(Latitude, Longitude);
+
+}
+
+// Get places by using coordinates
+
+function getPlaces(latitude, longitude) {
+
+    var latLong = new google.maps.LatLng(latitude, longitude);
+
+    var mapOptions = {
+
+        center: new google.maps.LatLng(latitude, longitude),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+
+    };
+
+    Map = new google.maps.Map(document.getElementById("places"), mapOptions);
+
+    Infowindow = new google.maps.InfoWindow();
+
+    var service = new google.maps.places.PlacesService(Map);
+    service.nearbySearch({
+
+        location: latLong,
+        radius: 500,
+        type: ['store']
+    }, foundStoresCallback);
+
+}
+
+// Success callback for watching your changing position
+
+var onPlacesWatchSuccess = function (position) {
+
+    var updatedLatitude = position.coords.latitude;
+    var updatedLongitude = position.coords.longitude;
+
+    if (updatedLatitude != Latitude && updatedLongitude != Longitude) {
+
+        Latitude = updatedLatitude;
+        Longitude = updatedLongitude;
+
+        getPlaces(updatedLatitude, updatedLongitude);
+    }
+}
+
+// Success callback for locating stores in the area
+
+function foundStoresCallback(results, status) {
+
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+
+        for (var i = 0; i < results.length; i++) {
+
+            createMarker(results[i]);
+
+        }
+    }
+}
+
+// Place a pin for each store on the map
+
+function createMarker(place) {
+
+    var placeLoc = place.geometry.location;
+
+    var marker = new google.maps.Marker({
+        map: Map,
+        position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function () {
+
+        Infowindow.setContent(place.name);
+        Infowindow.open(Map, this);
+
+    });
+}
+
+// Error callback
+
+function onPlacesError(error) {
+    console.log('code: ' + error.code + '\n' +
+        'message: ' + error.message + '\n');
+}
+
+// Watch your changing position
+
+function watchPlacesPosition() {
+
+    return navigator.geolocation.watchPosition
+    (onPlacesWatchSuccess, onPlacesError, { enableHighAccuracy: true });
+}	
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDAsbKyilFQHGGGTm_u7FO4Hws4u70Lw74",
+    authDomain: "dakraidee.firebaseapp.com",
+    databaseURL: "https://dakraidee.firebaseio.com",
+    storageBucket: "dakraidee.appspot.com",
+    messagingSenderId: "262812232363"
+  };
+  firebase.initializeApp(config);
+</script>
+  </body>
 </html>

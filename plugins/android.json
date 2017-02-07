@@ -12,10 +12,22 @@
         },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.jobjingjo.dakraidee"
+        },
+        "cordova-plugin-shake": {
+            "PACKAGE_NAME": "com.jobjingjo.dakraidee"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.jobjingjo.dakraidee"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.jobjingjo.dakraidee"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.jobjingjo.dakraidee"
+        },
+        "cordova-plugin-device-motion": {
             "PACKAGE_NAME": "com.jobjingjo.dakraidee"
         }
     }
